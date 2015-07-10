@@ -73,6 +73,9 @@ class Page_Template_Dashboard {
 		// Load plugin textdomain
 		add_action( 'init', array( $this, 'plugin_textdomain' ) );
 
+		// Specify width of custom column
+		add_action( 'admin_print_styles-edit.php', array( $this, 'columns_width_css' ) );
+
 		// Define the actions and filters
 	    add_filter( 'manage_edit-page_columns', array( $this, 'add_template_column' ) );
 	    add_action( 'manage_page_posts_custom_column', array( $this, 'add_template_data' ) );
@@ -117,6 +120,27 @@ class Page_Template_Dashboard {
 	/*--------------------------------------------*
 	 * Actions
 	 *--------------------------------------------*/
+
+	/**
+	 * If we're on the pages listing admin page, then add our column
+	 *
+	 * @since  to-be-updated
+	 * @return null
+	 */
+	public function columns_width_css() {
+		$screen = get_current_screen();
+
+		if ( isset( $screen->id ) && 'edit-page' == $screen->id && 'page' == $screen->post_type ) {
+			// In case you want to modify the width of the column. Default is 12%
+			$col_width = apply_filters( 'page_template_dashboard_column_width', '15%' );
+
+			?>
+			<style type="text/css" media="screen">
+				#template { width: <?php echo esc_html( $col_width ); ?>; }
+			</style>
+			<?php
+		}
+	}
 
 	/**
 	 * Renders the name of the template applied to the current page. Will use 'Default' if no
