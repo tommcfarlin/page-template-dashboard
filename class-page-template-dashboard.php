@@ -70,9 +70,6 @@ class Page_Template_Dashboard {
 	 */
 	private function __construct() {
 
-		// Set the locale for the plugin
-		$this->locale = 'page-template-dashboard-locale';
-
 		// Load plugin textdomain
 		add_action( 'init', array( $this, 'plugin_textdomain' ) );
 
@@ -111,7 +108,7 @@ class Page_Template_Dashboard {
 	 */
 	public function add_template_column( $page_columns ) {
 
-		$page_columns['template'] = __( 'Page Template', $this->locale );
+		$page_columns['template'] = __( 'Page Template', 'page-template-dashboard-locale' );
 
 		return $page_columns;
 
@@ -144,7 +141,7 @@ class Page_Template_Dashboard {
 			if( 0 == strlen( trim( $template_name ) ) || ! file_exists( get_stylesheet_directory() . '/' . $template_name ) ) {
 
 				// ...then we'll set it as default
-				$template_name = __( 'Default', $this->locale );
+				$template_name = __( 'Default', 'page-template-dashboard-locale' );
 
 			// Otherwise, let's actually get the friendly name of the file rather than the name of the file itself
 			// by using the WordPress `get_file_description` function
