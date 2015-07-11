@@ -74,8 +74,8 @@ class Page_Template_Dashboard {
 		add_action( 'init', array( $this, 'plugin_textdomain' ) );
 
 		// Define the actions and filters
-	    add_filter( 'manage_edit-page_columns', array( $this, 'add_template_column' ) );
-	    add_action( 'manage_page_posts_custom_column', array( $this, 'add_template_data' ) );
+		add_filter( 'manage_pages_columns', array( $this, 'add_template_column' ) );
+		add_action( 'manage_pages_custom_column', array( $this, 'add_template_data' ), 10, 2 );
 
 	} // end constructor
 
@@ -122,20 +122,18 @@ class Page_Template_Dashboard {
 	 * Renders the name of the template applied to the current page. Will use 'Default' if no
 	 * template is used, but will use the friendly name of the template if one is applied.
 	 *
-	 * @param	string	$column_name	The name of the column being rendered
+	 * @param   string $column_name The name of the column being rendered
+	 * @param   int    $post_id     The row's post ID
 	 * @version	1.0
-	 * @since	1.0
+	 * @since   1.0
 	 */
-	 public function add_template_data( $column_name ) {
-
-		// Grab a reference to the post that's currently being rendered
-		global $post;
+	public function add_template_data( $column_name, $post_id ) {
 
 		// If we're looking at our custom column, then let's get ready to render some information.
 		if( 'template' == $column_name ) {
 
 			// First, the get name of the template
-			$template_name = get_page_template_slug( $post->ID );
+			$template_name = get_page_template_slug( $post_id );
 
 			// If the file name is empty or the template file doesn't exist (because, say, meta data is left from a previous theme)...
 			if( 0 == strlen( trim( $template_name ) ) || ! file_exists( get_stylesheet_directory() . '/' . $template_name ) ) {
