@@ -128,32 +128,69 @@ class Page_Template_Dashboard {
 	 * @since   1.0
 	 */
 	public function add_template_data( $column_name, $post_id ) {
+		// If we're not looking at our custom column, then bail out
+		if ( 'template' != $column_name ) {
+			return;
+		}
 
-		// If we're looking at our custom column, then let's get ready to render some information.
-		if( 'template' == $column_name ) {
+		// Get template slug/name
+		$template = self::get_template( $post_id );
 
-			// First, the get name of the template
-			$template_name = get_page_template_slug( $post_id );
+		/**
+		 * Get the template name if it exists, or fall-back to the slug
+		 * This can happen if the page was set to a
+		 *
+		 * @var [type]
+		 */
 
-			// If the file name is empty or the template file doesn't exist (because, say, meta data is left from a previous theme)...
-			if( 0 == strlen( trim( $template_name ) ) || ! file_exists( get_stylesheet_directory() . '/' . $template_name ) ) {
+		// If it exists, let's use the friendly name of the file rather than the name of the file itself
+		if ( $template['name'] ) {
 
-				// ...then we'll set it as default
-				$template_name = __( 'Default', 'page-template-dashboard-locale' );
+			$name = $template['name'];
 
-			// Otherwise, let's actually get the friendly name of the file rather than the name of the file itself
-			// by using the WordPress `get_file_description` function
-			} else {
+		} elseif ( $template['slug'] ) {
 
-				$template_name = get_file_description( get_stylesheet_directory() . '/' . $template_name );
+			// If the template file doesn't exist (because, say, meta data is left from a previous theme), use the file-name
+			$name = sprintf( __( '%s<br>(template missing in theme)', 'page-template-dashboard-locale' ), $template['slug'] );
 
-			} // end if
+		} else {
+
+			// Otherwise page is using the default template
+			$name = __( 'Default', 'page-template-dashboard-locale' );
 
 		} // end if
 
-		// Finally, render the template name
-		echo $template_name;
+		// Generate some markup with slug as the title attribute (hover-to-view template file name)
+		$html = sprintf( '<span title="%s">%s</span>', esc_attr( $template['slug'] ), $name );
 
-	 } // end add_template_data
+		// Finally, render the template name. Filter allows markup modification
+		echo apply_filters( 'page_template_dashboard_markup', $html, $template );
+
+	} // end add_template_data
+
+	/*--------------------------------------------*
+	 * Helpers
+	 *--------------------------------------------*/
+
+	/**
+	 * Get a template name for a page
+	 *
+	 * @since  to-be-updated
+	 * @param  int    $post_id Post ID
+	 * @return string          Template name or slug, or empty
+	 */
+	public static function get_template( $post_id = 0 ) {
+		$post_id = $post_id ? $post_id : get_the_ID();
+
+		// First, the get the template slug
+		$template      = get_page_template_slug( $post_id );
+		// Get all existing theme templates
+		$templates     = get_page_templates( $post_id );
+		$templates     = is_array( $templates ) ? array_flip( $templates ) : array();
+		// Get the template nice-name
+		$template_name = array_key_exists( $template, $templates ) ? $templates[ $template ] : '';
+
+		return array( 'slug' => $template, 'name' => $template_name );
+	} // end get_template
 
 } // end class
