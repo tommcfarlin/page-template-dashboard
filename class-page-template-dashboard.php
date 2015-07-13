@@ -70,11 +70,11 @@ class Page_Template_Dashboard {
 	 */
 	private function __construct() {
 
-		// Set the locale for the plugin
-		$this->locale = 'page-template-dashboard-locale';
-
 		// Load plugin textdomain
 		add_action( 'init', array( $this, 'plugin_textdomain' ) );
+
+		// Specify width of custom column
+		add_action( 'admin_print_styles-edit.php', array( $this, 'columns_width_css' ) );
 
 		// Define the actions and filters
 	    add_filter( 'manage_edit-page_columns', array( $this, 'add_template_column' ) );
@@ -111,7 +111,7 @@ class Page_Template_Dashboard {
 	 */
 	public function add_template_column( $page_columns ) {
 
-		$page_columns['template'] = __( 'Page Template', $this->locale );
+		$page_columns['template'] = __( 'Page Template', 'page-template-dashboard-locale' );
 
 		return $page_columns;
 
@@ -120,6 +120,27 @@ class Page_Template_Dashboard {
 	/*--------------------------------------------*
 	 * Actions
 	 *--------------------------------------------*/
+
+	/**
+	 * If we're on the pages listing admin page, then add our column
+	 *
+	 * @since  to-be-updated
+	 * @return null
+	 */
+	public function columns_width_css() {
+		$screen = get_current_screen();
+
+		if ( isset( $screen->id ) && 'edit-page' == $screen->id && 'page' == $screen->post_type ) {
+			// In case you want to modify the width of the column. Default is 12%
+			$col_width = apply_filters( 'page_template_dashboard_column_width', '15%' );
+
+			?>
+			<style type="text/css" media="screen">
+				#template { width: <?php echo esc_html( $col_width ); ?>; }
+			</style>
+			<?php
+		}
+	}
 
 	/**
 	 * Renders the name of the template applied to the current page. Will use 'Default' if no
@@ -144,7 +165,7 @@ class Page_Template_Dashboard {
 			if( 0 == strlen( trim( $template_name ) ) || ! file_exists( get_stylesheet_directory() . '/' . $template_name ) ) {
 
 				// ...then we'll set it as default
-				$template_name = __( 'Default', $this->locale );
+				$template_name = __( 'Default', 'page-template-dashboard-locale' );
 
 			// Otherwise, let's actually get the friendly name of the file rather than the name of the file itself
 			// by using the WordPress `get_file_description` function
