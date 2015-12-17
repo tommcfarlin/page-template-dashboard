@@ -7,12 +7,12 @@
  * @package   PTD
  * @author    Your Name <email@example.com>
  * @license   GPL-2.0+
- * @link      http://tommcfarlin.com/page-template-dashboard/
+ * @link      https://tommcfarlin.com/view-page-templates/
  * @copyright 2013 - 2015 Tom McFarlin
  *
  * @wordpress-plugin
  * Plugin Name: Page Template Dashboard
- * Plugin URI:  http://tommcfarlin.com/page-template-dashboard/
+ * Plugin URI:  https://tommcfarlin.com/view-page-templates/
  * Description: An easy way to see which templates your pages are using without having to view the page editor.
  * Version:     1.6.0
  * Author:      Tom McFarlin
