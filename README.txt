@@ -1,6 +1,6 @@
 === Page Template Dashboard ===
 Contributors: tommcfarlin
-Donate link: https://tommcfarlin.com/projects/page-template-dashboard/
+Donate link: https://tommcfarlin.com/view-page-templates/
 Tags: page, templates
 Requires at least: 3.4
 Tested up to: 4.2.1
@@ -23,7 +23,7 @@ does not exist in the current theme
 
 The plugin is also fully localized for translation.
 
-For more information or to follow the project, check out the [project page](http://tommcfarlin.com/projects/page-template-dashboard/).
+For more information or to follow the project, check out the [project page](https://tommcfarlin.com/view-page-templates/).
 
 == Installation ==
 
