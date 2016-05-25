@@ -125,40 +125,39 @@ class Page_Template_Dashboard {
 	 * Renders the name of the template applied to the current page. Will use 'Default' if no
 	 * template is used, but will use the friendly name of the template if one is applied.
 	 *
-	 * @param	string	$column_name	The name of the column being rendered
-	 * @version	1.0
-	 * @since	1.0
+	 * @param   string $column_name The name of the column being rendered.
+	 * @version 1.0
+	 * @since   1.0
 	 */
-	 public function add_template_data( $column_name ) {
+	public function add_template_data( $column_name ) {
+		if ( 'template' !== $column_name ) {
+			return;
+		}
 
-		// Grab a reference to the post that's currently being rendered
+		// Grab a reference to the post that's currently being rendered.
 		global $post;
 
-		// If we're looking at our custom column, then let's get ready to render some information.
-		if( 'template' == $column_name ) {
+		// First, the get name of the template.
+		$template_name = get_page_template_slug( $post->ID );
+		$template = untrailingslashit( get_stylesheet_directory() ) . '/' . $template_name;
 
-			// First, the get name of the template
-			$template_name = get_page_template_slug( $post->ID );
+		// If the file name is empty or the template file doesn't exist (because, say, meta data is left from a previous theme)...
+		if ( 0 === strlen( trim( $template_name ) ) || ! file_exists( $template ) ) {
 
-			// If the file name is empty or the template file doesn't exist (because, say, meta data is left from a previous theme)...
-			if( 0 == strlen( trim( $template_name ) ) || ! file_exists( get_stylesheet_directory() . '/' . $template_name ) ) {
+			// ...then we'll set it as default
+			$template_name = __( 'Default', $this->locale );
 
-				// ...then we'll set it as default
-				$template_name = __( 'Default', $this->locale );
+		// Otherwise, let's actually get the friendly name of the file rather than the name of the file itself
+		// by using the WordPress `get_file_description` function
+		} else {
 
-			// Otherwise, let's actually get the friendly name of the file rather than the name of the file itself
-			// by using the WordPress `get_file_description` function
-			} else {
-
-				$template_name = get_file_description( get_stylesheet_directory() . '/' . $template_name );
-
-			} // end if
+			$template_name = get_file_description( $template );
 
 		} // end if
 
-		// Finally, render the template name
+		// Finally, render the template name.
 		echo $template_name;
 
-	 } // end add_template_data
+	} // end add_template_data
 
 } // end class
