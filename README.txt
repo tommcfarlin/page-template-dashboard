@@ -3,8 +3,8 @@ Contributors: tommcfarlin
 Donate link: https://tommcfarlin.com/projects/page-template-dashboard/
 Tags: page, templates
 Requires at least: 3.4
-Tested up to: 4.2.1
-Stable tag: 1.6.0
+Tested up to: 4.7.0
+Stable tag: 1.7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -21,9 +21,9 @@ the file name) will be displayed.
 Finally, the plugin will properly handle the case when a page has a template assigned to it from a previous theme that
 does not exist in the current theme
 
-The plugin is also fully localized for translation.
+The plugin is also fully internationalized for translation.
 
-For more information or to follow the project, check out the [project page](http://tommcfarlin.com/projects/page-template-dashboard/).
+For more information or to follow the project, check out the [GitHub repository](https://github.com/tommcfarlin/page-template-dashboard).
 
 == Installation ==
 
@@ -45,6 +45,16 @@ For more information or to follow the project, check out the [project page](http
 1. The Pages Dashboard with the plugin activated.
 
 == Changelog ==
+
+= 1.7.0 =
+
+* Verifies WordPress 4.7 compatibility.
+* Adds Composer support for PHP Unit and PHP CodeSniffer.
+* Adds CHANGELOG.md for users on GitHub.
+* Updates screenshot for the most recent version of WordPress.
+* Updates code to the WordPress Coding Standards.
+* Removes the implementation of the Singleton Pattern.
+* Removes the locale property in place of actual strings for i18n.
 
 = 1.6.0 =
 
