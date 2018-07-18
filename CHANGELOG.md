@@ -1,7 +1,16 @@
 # Change Log for Page Template Dashboard
 
-As of 1.7.0, all notable changes to this project will be documented
+As of 1.8.0, all notable changes to this project will be documented
 in this file. This project adheres to [Semantic Versioning](http://semver.org/).
+
+## 1.8.0
+
+* Verifies WordPress 4.9 compatibility.
+
+### Changed
+
+* Fix bug : Could not find a template name in a parent theme.
+* Fix bug : Stop using get_file_description function that was not always working (use another way).
 
 ## 1.7.0
 

@@ -83,17 +83,18 @@ class Page_Template_Dashboard {
 
 		// First, the get name of the template.
 		$template_name = get_page_template_slug( $post->ID );
-		$template      = untrailingslashit( get_stylesheet_directory() ) . '/' . $template_name;
 
-		/**
-		 * If the file name is empty or the template file doesn't exist (because, say,
-		 * meta data is left from a previous theme).
-		 * Otherwise, let's actually get the friendly name of the file rather than the name of the file itself
-		 * by using the WordPress `get_file_description` function
-		 */
-		$template_name = ( 0 === strlen( trim( $template_name ) ) || ! file_exists( $template ) ) ?
-			 __( 'Default', 'page-template-dashboard-locale' ) :
-			get_file_description( $template );
+		// Locate template from the child or parent theme.
+		$template = locate_template( $template_name, false, false );
+		if ( ! empty( $template ) ) {
+			// Get template name in the header comment of the file
+			$template_data = implode( '', file( $template ) );
+			if ( preg_match( '|Template Name:(.*)$|mi', $template_data, $name ) ) {
+				$template_name = _cleanup_header_comment( $name[1] );
+			}
+		} else {
+			$template_name = __( 'Default', 'page-template-dashboard-locale' );
+		}
 
 		// Finally, render the template name.
 		echo esc_html( $template_name );

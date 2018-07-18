@@ -1,10 +1,10 @@
 === Page Template Dashboard ===
-Contributors: tommcfarlin
+Contributors: tommcfarlin, Mista-Flo
 Donate link: https://tommcfarlin.com/projects/page-template-dashboard/
 Tags: page, templates
 Requires at least: 3.4
-Tested up to: 4.7.0
-Stable tag: 1.7.0
+Tested up to: 4.9.8
+Stable tag: 1.8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -30,21 +30,31 @@ For more information or to follow the project, check out the [GitHub repository]
 = Using The WordPress Dashboard =
 
 1. Navigate to the 'Add New' Plugin Dashboard
-1. Select `page-template-dashboard.zip` from your computer
-1. Upload
-1. Activate the plugin on the WordPress Plugin Dashboard
+2. Select `page-template-dashboard.zip` from your computer
+3. Upload
+4. Activate the plugin on the WordPress Plugin Dashboard
 
 = Using FTP =
 
 1. Extract `page-template-dashboard.zip` to your computer
-1. Upload the `page-template-dashboard` directory to your `wp-content/plugins` directory
-1. Activate the plugin on the WordPress Plugins dashboard
+2. Upload the `page-template-dashboard` directory to your `wp-content/plugins` directory
+3. Activate the plugin on the WordPress Plugins dashboard
+
+= Using Composer =
+
+1. composer require wpackagist-plugin/page-template-dashboard
 
 == Screenshots ==
 
 1. The Pages Dashboard with the plugin activated.
 
 == Changelog ==
+
+= 1.8.0 =
+
+* Verifies WordPress 4.9 compatibility.
+* Fix bug : Could not find a template name in a parent theme.
+* Fix bug : Stop using get_file_description function that was not always working (use another way).
 
 = 1.7.0 =
 
@@ -61,6 +71,7 @@ For more information or to follow the project, check out the [GitHub repository]
 * Verifying WordPress 4.2.1 compatibility
 
 = 1.5.0 =
+
 * Verifying WordPress 4.1 compatibility
 
 = 1.4.0 =
@@ -82,15 +93,18 @@ For more information or to follow the project, check out the [GitHub repository]
 * Added LICENSE.txt
 
 = 1.1 =
+
 * Adding Finnish translation (thanks to <a href="http://twitter.com/SipuliSopuli/">Timi Wahalahti</a>)
 * Adding support for child themes (thanks to <a href="http://twitter.com/MaorH">Maor Chasen's</a> suggestion)
 * Using `get_page_template_slug` instead of reading Post Meta Data (thanks to <a href="http://twitter.com/MaorH/">Maor Chasen's</a> suggestion)
 * Updating the screenshot
 
 = 1.0.1 =
+
 * Minor update to the screenshot and the Development Information
 
 = 1.0 =
+
 * Initial release
 
 == Development Information ==

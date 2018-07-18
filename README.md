@@ -34,6 +34,10 @@ For more information or to follow the project, check out the [project page](http
 2. Upload the `page-template-dashboard` directory to your `wp-content/plugins` directory
 3. Activate the plugin on the WordPress Plugins dashboard
 
+### Using Composer 
+
+1. `composer require wpackagist-plugin/page-template-dashboard`
+
 ## Notes
 
 Page Template Dashboard...
