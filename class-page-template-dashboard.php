@@ -6,7 +6,7 @@
  * @author    Tom McFarlin <tom@tommcfarlin.com>
  * @license   GPL-2.0+
  * @link      http://tommcfarlin.com/page-template-dashboard/
- * @copyright 2013 - 2016 Tom McFarlin
+ * @copyright 2013 - 2018 Tom McFarlin
  */
 
 /**
@@ -78,6 +78,10 @@ class Page_Template_Dashboard {
 			return;
 		}
 
+		self::get_template_name();
+	}
+
+	public static function get_template_name() {
 		// Grab a reference to the post that's currently being rendered.
 		global $post;
 
