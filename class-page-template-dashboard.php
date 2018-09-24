@@ -23,32 +23,53 @@ class Page_Template_Dashboard {
 	 */
 	public function init() {
 
-		add_action(
-			'init',
-			array( $this, 'plugin_textdomain' )
-		);
-
-	    add_filter(
-			'manage_edit-page_columns',
-			array( $this, 'add_template_column' )
-		);
-
-	    add_action(
-			'manage_page_posts_custom_column',
-			array( $this, 'add_template_data' )
-		);
+		$this->load_plugin_textdomain();
+		$this->register_admin_columns();
+	    
 	}
 
 	/**
 	 * Loads the plugin text domain for translation.
 	 */
-	public function plugin_textdomain() {
+	public function load_plugin_textdomain() {
 
 		load_plugin_textdomain(
 			'page-template-dashboard',
 			false,
 			dirname( plugin_basename( __FILE__ ) ) . '/lang'
 		);
+	}
+
+	/**
+	 * Add the custom admin column to post types
+	 *
+	 * @return void
+	 */
+	public function register_admin_columns() {
+		$post_types = $this->get_post_types();
+		
+		foreach ($post_types as $post_type) {
+			add_filter(
+				"manage_{$post_type}_posts_columns",
+				array( $this, 'add_template_column' )
+			);
+			
+			
+			add_action(
+				"manage_{$post_type}_posts_custom_column",
+				array( $this, 'add_template_data' )
+			);
+		}
+	}
+
+	/**
+	 * Get a list of post types to register the column for
+	 *
+	 * @return array $post_types
+	 */
+	public function get_post_types() {
+		$default_post_types = array('page');
+		return apply_filters( 'page_template_dashboard_post_types', $default_post_types );
 	}
 
 	/**
