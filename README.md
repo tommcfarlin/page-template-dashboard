@@ -38,6 +38,23 @@ For more information or to follow the project, check out the [project page](http
 
 1. `composer require wpackagist-plugin/page-template-dashboard`
 
+## Hooks
+
+Page Template Dashboard offers hooks to customize the plugin. You can add your hooks into your theme `functions.php`.
+
+__page_template_dashboard_post_types__
+
+Add or adjust which custom post types show the template column in the admin.
+
+```
+add_filter( 'page_template_dashboard_post_types', 'show_template_for_custom_post_type');
+
+function show_template_for_custom_post_type ($post_types) {
+    $post_types[] = 'my_post_type';
+    return $post_types;
+});
+```
+
 ## Notes
 
 Page Template Dashboard...
