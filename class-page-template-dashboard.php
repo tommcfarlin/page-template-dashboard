@@ -82,15 +82,22 @@ class Page_Template_Dashboard {
 		global $post;
 
 		// First, the get name of the template.
-		$template_name = get_page_template_slug( $post->ID );
+		$template_slug = get_page_template_slug( $post->ID );
+		$template_name = $template_slug;
 
 		// Locate template from the child or parent theme.
-		$template = locate_template( $template_name, false, false );
+		$template = locate_template( $template_slug, false, false );
 		if ( ! empty( $template ) ) {
 			// Get template name in the header comment of the file
 			$template_data = implode( '', file( $template ) );
 			if ( preg_match( '|Template Name:(.*)$|mi', $template_data, $name ) ) {
 				$template_name = _cleanup_header_comment( $name[1] );
+			}
+			if ( 
+				$show_filename = apply_filters( 'page_template_dashboard_show_filename', false ) 
+				&& $template_name !== $template_slug
+			) {
+				$template_name .= " ({$template_slug})";
 			}
 		} else {
 			$template_name = __( 'Default', 'page-template-dashboard-locale' );
