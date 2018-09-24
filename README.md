@@ -52,7 +52,7 @@ add_filter( 'page_template_dashboard_post_types', 'show_template_for_custom_post
 function show_template_for_custom_post_type ($post_types) {
     $post_types[] = 'my_post_type';
     return $post_types;
-});
+}
 ```
 
 ## Notes
