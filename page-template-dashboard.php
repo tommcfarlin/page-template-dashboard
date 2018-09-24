@@ -27,7 +27,7 @@ defined( 'WPINC' ) || die;
 
 include_once 'class-page-template-dashboard.php' ;
 
-add_action( 'plugins_loaded', 'ptd_start' );
+add_action( 'init', 'ptd_start' );
 /**
  * Starts the plugin.
  */
