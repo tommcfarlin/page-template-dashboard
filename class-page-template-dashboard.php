@@ -40,6 +40,11 @@ class Page_Template_Dashboard {
 		);
 	}
 
+	/**
+	 * Add the custom admin column to post types
+	 *
+	 * @return void
+	 */
 	public function register_admin_columns() {
 		$post_types = $this->get_post_types();
 		
