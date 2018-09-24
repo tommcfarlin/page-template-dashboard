@@ -38,6 +38,18 @@ For more information or to follow the project, check out the [project page](http
 
 1. `composer require wpackagist-plugin/page-template-dashboard`
 
+## Hooks
+
+Page Template Dashboard offers hooks to customize the plugin. You can add your hooks into your theme `functions.php`.
+
+__page_template_dashboard_show_filename__
+
+Show the filename in addition to the template name. Default is `false`.
+
+```
+add_filter( 'page_template_dashboard_show_filename', '__return_true' );
+```
+
 ## Notes
 
 Page Template Dashboard...
